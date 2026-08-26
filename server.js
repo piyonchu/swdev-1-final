@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 dotenv.config({ path: './config/config.env' });
 
 const auth = require('./routes/auth');
+const massageShops = require('./routes/massageShops');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/massage-shops', massageShops);
 
 const PORT = process.env.PORT || 5000;
 
