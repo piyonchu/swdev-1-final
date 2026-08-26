@@ -10,6 +10,9 @@ const { protect, authorize } = require('../middleware/auth');
 
 const router = express.Router();
 
+const reservationRouter = require('./reservations');
+router.use('/:massageShopId/reservations', reservationRouter);
+
 router.route('/')
     .get(protect, getMassageShops)
     .post(protect, authorize('admin'), createMassageShop);

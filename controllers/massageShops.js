@@ -1,4 +1,6 @@
 const MassageShop = require('../models/MassageShop');
+const Reservation = require('../models/Reservation');
+
 //@desc     Get all massage shops
 //@route    GET /api/v1/massage-shops
 //@access   Private
@@ -78,6 +80,7 @@ exports.deleteMassageShop = async (req, res, next) => {
             return res.status(404).json({ success: false, message: `No massage shop with the id of ${req.params.id}` });
         }
 
+        await Reservation.deleteMany({ massageShop: req.params.id });
         await shop.deleteOne();
 
         res.status(200).json({ success: true, data: {} });
