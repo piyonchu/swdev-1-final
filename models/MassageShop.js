@@ -23,6 +23,12 @@ const MassageShopSchema = new mongoose.Schema({
     closetime: {
         type: String,
         required: [true, 'Please add a close time']
+    },
+    // EXTRA CREDIT REQ3: admin sets max reservations per shop per calendar date
+    maxReservationsPerDate: {
+        type: Number,
+        default: 10,
+        min: [1, 'maxReservationsPerDate must be at least 1']
     }
 }, {
     toJSON: { virtuals: true },

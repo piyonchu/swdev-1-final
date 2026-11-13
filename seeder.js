@@ -13,21 +13,25 @@ const shops = [
         address: '123 Phaya Thai Rd, Bangkok',
         tel: '02-111-1111',
         opentime: '10:00',
-        closetime: '22:00'
+        closetime: '22:00',
+        // Base demo needs up to 3 user queues; Extra Credit Postman sets this to 2 live
+        maxReservationsPerDate: 10
     },
     {
         name: 'Lanna Thai Massage',
         address: '45 Chang Klan Rd, Chiang Mai',
         tel: '053-222-2222',
         opentime: '09:00',
-        closetime: '21:00'
+        closetime: '21:00',
+        maxReservationsPerDate: 10
     },
     {
         name: 'Ocean Spa',
         address: '88 Beach Rd, Phuket',
         tel: '076-333-3333',
         opentime: '11:00',
-        closetime: '23:00'
+        closetime: '23:00',
+        maxReservationsPerDate: 10
     }
 ];
 
@@ -72,6 +76,13 @@ const seed = async () => {
         if (!existing) {
             await MassageShop.create(shop);
             console.log(`Shop created: ${shop.name}`);
+        } else {
+            // Keep extra-credit cap in sync when re-seeding
+            existing.maxReservationsPerDate = shop.maxReservationsPerDate;
+            existing.opentime = shop.opentime;
+            existing.closetime = shop.closetime;
+            await existing.save();
+            console.log(`Shop updated: ${shop.name} (max/day=${shop.maxReservationsPerDate})`);
         }
     }
 
