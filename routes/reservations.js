@@ -5,6 +5,7 @@ const {
     holdReservation,
     addReservation,
     updateReservation,
+    cancelReservation,
     deleteReservation
 } = require('../controllers/reservations');
 const { protect, authorize } = require('../middleware/auth');
@@ -18,6 +19,9 @@ router.route('/')
 // EXTRA CREDIT REQ4: start 8-minute hold before confirm/create
 router.route('/hold')
     .post(protect, authorize('admin', 'user'), holdReservation);
+
+router.route('/:id/cancel')
+    .post(protect, authorize('admin', 'user'), cancelReservation);
 
 router.route('/:id')
     .get(protect, getReservation)
